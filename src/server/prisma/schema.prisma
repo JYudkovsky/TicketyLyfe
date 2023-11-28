@@ -11,16 +11,24 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique
-  password String
-  tasks    Task[]
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  username  String   @unique
+  password  String
+  tickets   Ticket[]
 }
 
-model Task {
-  id          Int     @id @default(autoincrement())
-  description String
-  done        Boolean @default(false)
+model Ticket {
+  id          Int    @id @default(autoincrement())
+  name        String
   userId      Int
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dateTime    Int
+  description String
+  location    String
+  seatSection String
+  imageUrl    String @default("blank_image")
+  price       Int
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
