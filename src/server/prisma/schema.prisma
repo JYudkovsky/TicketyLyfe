@@ -22,7 +22,7 @@ model User {
 
 model Ticket {
   id          Int    @id @default(autoincrement())
-  name        String
+  eventName   String
   userId      Int
   dateTime    Int
   description String
