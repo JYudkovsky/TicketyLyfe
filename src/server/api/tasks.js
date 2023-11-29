@@ -14,9 +14,15 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const users = await prisma.user.findMany();
-    res.json(users);
-    console.log(users);
+    const allUsersWithTickets = await prisma.user.findMany({
+      include: {
+        tickets: true,
+      },
+    });
+    console.dir(allUsersWithTickets, { depth: null });
+
+    res.json(allUsersWithTickets);
+    console.log(allUsersWithTickets);
   } catch (err) {
     next(err);
   }
