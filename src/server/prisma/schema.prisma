@@ -21,14 +21,14 @@ model User {
 }
 
 model Ticket {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   eventName   String
-  userId      Int
-  dateTime    Int
+  dateTime    DateTime
   description String
   location    String
   seatSection String
-  imageUrl    String @default("blank_image")
+  imageUrl    String   @default("blank_image")
   price       Int
-  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
