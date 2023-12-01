@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDeleteEventMutation } from "./EventSlice";
 
 function EventCard({
   id,
@@ -21,6 +22,12 @@ function EventCard({
     navigate("${id}");
   };
 
+  const [deleteEvent] = useDeleteEventMutation();
+  const handleDelete = () => {
+    deleteEvent();
+    navigate("/events");
+  };
+
   return (
     <div className="event-card">
       <h2>{eventName}</h2>
@@ -35,6 +42,9 @@ function EventCard({
       <div className="buy-now">Buy Now Price: ${price}</div>
       <button className="details" onClick={handleDetailsClick}>
         Details
+      </button>
+      <button className="deleteButton" onClick={handleDelete}>
+        Remove Ticket
       </button>
     </div>
   );
