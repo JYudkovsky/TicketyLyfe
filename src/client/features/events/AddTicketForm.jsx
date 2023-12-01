@@ -11,16 +11,15 @@ function AddTicketForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    addEvent = {
-      eventName,
-      location,
-      dateTime,
-      description,
-      seatSection,
-    };
-
     try {
+      addEvent({
+        eventName,
+        location,
+        dateTime,
+        description,
+        seatSection,
+      });
+
       setEventName("");
       setLocation("");
       setDateTime("");
@@ -53,7 +52,7 @@ function AddTicketForm() {
         <lable>
           Date & Time
           <input
-            type="text"
+            type="datetime-local"
             value={dateTime}
             onChange={(e) => setDateTime(e.target.value)}
           />
@@ -66,12 +65,15 @@ function AddTicketForm() {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <input
-          type="text"
-          value={seatSection}
-          onChange={(e) => setSeatSection(e.target.value)}
-        />
-        <button>Add Event</button>
+        <label>
+          Seat/Section
+          <input
+            type="text"
+            value={seatSection}
+            onChange={(e) => setSeatSection(e.target.value)}
+          />
+        </label>
+        <button type="submit">Add Event</button>
       </form>
     </>
   );
