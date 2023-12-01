@@ -9,7 +9,7 @@ const eventsApi = api.injectEndpoints({
 
     addEvent: builder.mutation({
       query: (eventData) => ({
-        url: "/events",
+        url: "/events/tickets",
         method: "POST",
         body: eventData,
       }),

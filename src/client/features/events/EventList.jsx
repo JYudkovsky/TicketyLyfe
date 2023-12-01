@@ -1,7 +1,7 @@
 import { useGetEventsQuery } from "./EventSlice";
 import { Link, useNavigate } from "react-router-dom";
 import EventCard from "./EventCard";
-function EventList({ events }) {
+function EventList() {
   // const navigate = useNavigate();
   const { data: e, error, isLoading } = useGetEventsQuery();
   if (isLoading) return <div> Loading . . . </div>;
