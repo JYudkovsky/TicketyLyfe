@@ -3,12 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import EventCard from "./EventCard";
 function EventList({ events }) {
   // const navigate = useNavigate();
+  const { data: e, error, isLoading } = useGetEventsQuery();
+  if (isLoading) return <div> Loading . . . </div>;
+  if (error) return <div> Error . . . </div>;
 
   return (
     <div className="event-list">
-      {events.map((event) => (
+      {/* {events.map((event) => (
         <EventCard
-          kye={event.id}
+          key={event.id}
           id={event.id}
           eventName={event.eventName}
           location={event.location}
@@ -18,7 +21,13 @@ function EventList({ events }) {
           sellerProfile={event.sellerProfile}
           price={event.price}
         />
-      ))}
+      ))} */}
+
+      <ul>
+        {e?.map((E) => (
+          <EventCard key={E.id} event={E} />
+        ))}
+      </ul>
     </div>
   );
 }

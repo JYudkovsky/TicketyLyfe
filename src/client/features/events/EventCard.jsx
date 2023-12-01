@@ -3,14 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteEventMutation } from "./EventSlice";
 
 function EventCard({
-  id,
-  eventName,
-  location,
-  dateTime,
-  description,
-  seatSection,
-  sellerProfile,
-  price,
+  event,
+  // id,
+  // eventName,
+  // location,
+  // dateTime,
+  // description,
+  // seatSection,
+  // sellerProfile,
+  // price,
 }) {
   const navigate = useNavigate();
 
@@ -30,16 +31,16 @@ function EventCard({
 
   return (
     <div className="event-card">
-      <h2>{eventName}</h2>
-      <p>{location}</p>
-      <p>{dateTime}</p>
-      <p>{description}</p>
-      <button className="seat-section">{seatSection}</button>
+      <h2>{event.tickets.eventName}</h2>
+      <p>{event.tickets.location}</p>
+      <p>{event.tickets.dateTime}</p>
+      <p>{event.tickets.description}</p>
+      <button className="seat-section">{event.tickets.seatSection}</button>
       <button className="view-profile" onClick={viewSellerProfile}>
         {" "}
         View Seller Profile{" "}
       </button>
-      <div className="buy-now">Buy Now Price: ${price}</div>
+      <div className="buy-now">Buy Now Price: ${event.tickets.price}</div>
       <button className="details" onClick={handleDetailsClick}>
         Details
       </button>
