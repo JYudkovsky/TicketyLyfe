@@ -3,11 +3,12 @@ import { selectToken } from "../auth/authSlice";
 import NewTask from "./NewTask";
 import Task from "./Task";
 import { useGetTasksQuery } from "./taskSlice";
+import EventList from "../events/EventList";
 
 import "./Tasks.less";
 
 /** Main interface for user to interact with their tasks */
-export default function Tasks() {
+function HomePage() {
   const token = useSelector(selectToken);
   const { data: tasks, isLoading } = useGetTasksQuery();
 
@@ -16,7 +17,7 @@ export default function Tasks() {
   }
 
   return (
-    <div className="tasks">
+    <div className="home-page">
       <h1>Tasks</h1>
       <h2>Add New Task</h2>
       <NewTask />
@@ -32,3 +33,5 @@ export default function Tasks() {
     </div>
   );
 }
+
+export default HomePage;
