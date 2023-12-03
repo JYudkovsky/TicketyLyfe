@@ -16,6 +16,9 @@ export default function AuthForm() {
   // Controlled form fields
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   // Form submission
   const [login, { isLoading: loginLoading, error: loginError }] =
@@ -45,6 +48,30 @@ export default function AuthForm() {
     <>
       <h1>{authAction}</h1>
       <form onSubmit={attemptAuth}>
+        <label>
+          First Name
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </label>
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </label>
+        <label>
+          Email
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </label>
         <label>
           Username
           <input
