@@ -8,7 +8,7 @@ module.exports = router;
 /** Creates new account and returns token */
 router.post("/register", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, firstName, lastName, email } = req.body;
 
     // Check if username and password provided
     if (!username || !password) {
@@ -28,7 +28,7 @@ router.post("/register", async (req, res, next) => {
 
     // Create new user
     const newUser = await prisma.user.create({
-      data: { username, password },
+      data: { username, password, firstName, lastName, email },
     });
 
     const token = jwt.sign({ id: newUser.id });

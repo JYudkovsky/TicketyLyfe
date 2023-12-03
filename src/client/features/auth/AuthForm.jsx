@@ -30,17 +30,24 @@ export default function AuthForm() {
   const attemptAuth = async (evt) => {
     evt.preventDefault();
 
-    const authMethod = isLogin ? login : register;
     const credentials = { username, password };
 
-    // We don't want to navigate if there's an error.
-    // `unwrap` will throw an error if there is one
-    // so we can use a try/catch to handle it.
-    try {
-      await authMethod(credentials).unwrap();
-      navigate("/");
-    } catch (err) {
-      console.error(err);
+    if (isLogin) {
+      try {
+        await login(credentials).unwrap();
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      const userData = { firstName, lastName, email, username, password };
+      try {
+        await register(userData).unwrap();
+        await login(credentials).unwrap();
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
@@ -48,30 +55,34 @@ export default function AuthForm() {
     <>
       <h1>{authAction}</h1>
       <form onSubmit={attemptAuth}>
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-        </label>
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
+        {!isLogin && (
+          <>
+            <label>
+              First Name
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </label>
+            <label>
+              Last Name
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </label>
+            <label>
+              Email
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
+          </>
+        )}
         <label>
           Username
           <input
