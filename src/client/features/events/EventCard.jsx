@@ -26,26 +26,23 @@ function EventCard({ event }) {
         <AddTicketForm />
       </form> */}
       <div className="event-card">
-        {event.tickets.map((ticket) => (
-          <div key={ticket.id}>
-            <h2>{ticket.eventName}</h2>
-            <p>{ticket.location}</p>
-            <p>{ticket.dateTime}</p>
-            <p>{ticket.description}</p>
-            <button className="seat-section">{ticket.seatSection}</button>
-            <button className="view-profile" onClick={viewSellerProfile}>
-              {" "}
-              View Seller Profile{" "}
-            </button>
-            <div className="buy-now">Buy Now Price: ${ticket.price}</div>
-            <button className="details" onClick={handleDetailsClick}>
-              Details
-            </button>
-            <button className="deleteButton" onClick={handleDelete}>
-              Remove Ticket
-            </button>
-          </div>
-        ))}
+        <h2>{event.eventName}</h2>
+        <p>{event.location}</p>
+        <p>{event.dateTime}</p>
+        <p>{event.description}</p>
+        <button className="seat-section">{event.seatSection}</button>
+        <button className="view-profile" onClick={viewSellerProfile}>
+          {" "}
+          View Seller Profile{" "}
+        </button>
+        <div className="buy-now">Buy Now Price: ${event.price}</div>
+        <button className="details" onClick={handleDetailsClick}>
+          Details
+        </button>
+        <button className="deleteButton" onClick={handleDelete}>
+          Remove Ticket
+        </button>
+
         {/* <h2>{tickets.eventName}</h2>
       <p>{tickets.location}</p>
       <p>{tickets.dateTime}</p>

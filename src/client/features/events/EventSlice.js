@@ -3,13 +3,13 @@ import api from "../../store/api";
 const eventsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getEvents: builder.query({
-      query: () => "/events/user",
+      query: () => "/events/ticket",
       providesTags: ["Events"],
     }),
 
     addEvent: builder.mutation({
       query: (eventData) => ({
-        url: "/events/tickets",
+        url: "/events/ticket",
         method: "POST",
         body: eventData,
       }),
