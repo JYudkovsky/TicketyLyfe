@@ -14,7 +14,6 @@ const seed = async () => {
             {
               // ticket: {
               eventName: "Concert",
-              // userId: 1,
               dateTime: new Date("2023-12-10T19:00:00"),
               location: "Capitol Theatre, Port Chester, NY",
               description: "Live music performance",
@@ -25,7 +24,6 @@ const seed = async () => {
             {
               // ticket: {
               eventName: "Sports Event",
-              // userId: 2,
               dateTime: new Date("2024-01-05T15:30:00"),
               location: "Fenway Park, Boston, MA",
               description: "Baseball game",
@@ -36,7 +34,6 @@ const seed = async () => {
             {
               // ticket: {
               eventName: "Theater Show",
-              // userId: 3,
               dateTime: new Date("2023-12-22T18:45:00"),
               location: "New York City Theater, Manhattan, NY",
               description: "Drama performance",
@@ -47,7 +44,6 @@ const seed = async () => {
             {
               // ticket: {
               eventName: "Comedy Night",
-              // userId: 4,
               dateTime: new Date("2024-02-15T20:00:00"),
               location: "New York Comedy Club, Manhattan, NY",
               description: "Stand-up comedy",
@@ -58,7 +54,6 @@ const seed = async () => {
             {
               // ticket: {
               eventName: "Movie Premiere",
-              // userId: 5,
               dateTime: new Date("2023-12-31T21:00:00"),
               location: "AMC Theaters, Port Chester, NY",
               description: "Exclusive movie screening",
