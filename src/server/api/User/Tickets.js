@@ -5,18 +5,16 @@ const router = require("express").Router();
 module.exports = router;
 
 /** User must be logged in to access tasks. */
-router.use((req, res, next) => {
-  if (!res.locals.user) {
-    return next(new ServerError(401, "You must be logged in."));
-  }
-  next();
-});
+// router.use((req, res, next) => {
+//   if (!res.locals.user) {
+//     return next(new ServerError(401, "You must be logged in."));
+//   }
+//   next();
+// });
 
 router.get("/", async (req, res, next) => {
   try {
-    const tickets = await prisma.ticket.findMany({
-      where: { userId: res.locals.user.id },
-    });
+    const tickets = await prisma.ticket.findMany();
     res.json(tickets);
   } catch (err) {
     next(err);
@@ -67,7 +65,7 @@ const validateTicket = (user, ticket) => {
   }
 };
 
-router.get("/:id", async (req, res, next) => {
+router.get("/ticket/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     const ticket = await prisma.ticket.findUnique({ where: { id } });
@@ -79,7 +77,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.put("/:id", async (req, res, next) => {
+router.put("/ticket/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     const { eventName, location, dateTime, description, seatSection } =
@@ -98,7 +96,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/ticket/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 

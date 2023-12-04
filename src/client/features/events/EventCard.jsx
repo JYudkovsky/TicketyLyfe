@@ -3,17 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDeleteEventMutation } from "./EventSlice";
 import AddTicketForm from "./AddTicketForm";
 
-function EventCard({
-  event,
-  // id,
-  // eventName,
-  // location,
-  // dateTime,
-  // description,
-  // seatSection,
-  // sellerProfile,
-  // price,
-}) {
+function EventCard({ event }) {
   const navigate = useNavigate();
 
   const handleDetailsClick = () => {
@@ -32,9 +22,9 @@ function EventCard({
 
   return (
     <>
-      <form className="add-ticket-form">
+      {/* <form className="add-ticket-form">
         <AddTicketForm />
-      </form>
+      </form> */}
       <div className="event-card">
         {event.tickets.map((ticket) => (
           <div key={ticket.id}>
