@@ -12,7 +12,7 @@ module.exports = router;
 //   next();
 // });
 
-router.get("/", async (req, res, next) => {
+router.get("/ticket", async (req, res, next) => {
   try {
     const tickets = await prisma.ticket.findMany();
     res.json(tickets);
@@ -21,7 +21,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
+router.post("/ticket", async (req, res, next) => {
   try {
     const { eventName, location, dateTime, description, seatSection } =
       req.body;

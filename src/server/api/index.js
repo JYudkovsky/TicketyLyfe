@@ -27,4 +27,4 @@ router.use(async (req, res, next) => {
 });
 
 router.use("/auth", require("./auth"));
-router.use("/events", require("./User/Tickets"));
+router.use("/tickets", require("./User/Tickets"));
