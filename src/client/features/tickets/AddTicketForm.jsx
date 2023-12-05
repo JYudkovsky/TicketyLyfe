@@ -1,4 +1,4 @@
-import { useAddEventMutation } from "./EventSlice";
+import { useAddTicketMutation } from "./TicketSlice";
 import { useState } from "react";
 
 function AddTicketForm() {
@@ -7,7 +7,7 @@ function AddTicketForm() {
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
   const [seatSection, setSeatSection] = useState("");
-  const [addEvent] = useAddEventMutation();
+  const [addEvent] = useAddTicketMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
