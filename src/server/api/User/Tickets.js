@@ -12,7 +12,7 @@ module.exports = router;
 //   next();
 // });
 
-router.get("/ticket", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const tickets = await prisma.ticket.findMany();
     res.json(tickets);
@@ -21,10 +21,16 @@ router.get("/ticket", async (req, res, next) => {
   }
 });
 
-router.post("/ticket", async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
-    const { eventName, location, dateTime, description, seatSection } =
-      req.body;
+    const {
+      eventName,
+      location,
+      dateTime,
+      description,
+      seatSection,
+      sellerId,
+    } = req.body;
     if (!eventName || !location || !dateTime) {
       const error = {
         status: 400,
@@ -39,6 +45,7 @@ router.post("/ticket", async (req, res, next) => {
         dateTime: dateTime,
         description: description,
         seatSection: seatSection,
+        sellerId: sellerId,
         user: { connect: { id: res.locals.user.id } },
       },
     });
@@ -48,7 +55,7 @@ router.post("/ticket", async (req, res, next) => {
   }
 });
 
-const validateTicket = (user, ticket) => {
+const validateTicket = (user, ticket, next) => {
   if (!ticket) {
     const error = {
       status: 404,
@@ -65,19 +72,19 @@ const validateTicket = (user, ticket) => {
   }
 };
 
-router.get("/ticket/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-    const ticket = await prisma.ticket.findUnique({ where: { id } });
-    validateTicket(res.locals.user, ticket);
+// router.get("/:id", async (req, res, next) => {
+//   try {
+//     const id = +req.params.id;
+//     const ticket = await prisma.ticket.findUnique({ where: { id } });
+//     validateTicket(res.locals.user, ticket);
 
-    res.json(ticket);
-  } catch (err) {
-    next(err);
-  }
-});
+//     res.json(ticket);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
-router.put("/ticket/:id", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     const { eventName, location, dateTime, description, seatSection } =
@@ -96,7 +103,7 @@ router.put("/ticket/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/ticket/:id", async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 

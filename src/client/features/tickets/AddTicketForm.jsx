@@ -7,12 +7,12 @@ function AddTicketForm() {
   const [dateTime, setDateTime] = useState("");
   const [description, setDescription] = useState("");
   const [seatSection, setSeatSection] = useState("");
-  const [addEvent] = useAddTicketMutation();
+  const [addTicket, {isLoading, isSuccess, isError, error}] = useAddTicketMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      addEvent({
+      addTicket({
         eventName,
         location,
         dateTime,
