@@ -17,7 +17,8 @@ router.get("/", async (req, res, next) => {
     const tickets = await prisma.ticket.findMany();
     res.json(tickets);
   } catch (err) {
-    next(err);
+    console.error(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
