@@ -17,7 +17,6 @@ model User {
   email     String   @unique
   username  String   @unique
   password  String
-  tickets   Ticket[]
   selling   Ticket[] @relation("TicketSeller")
   buying    Ticket[] @relation("TicketBuyer")
 }
@@ -32,9 +31,7 @@ model Ticket {
   imageUrl    String   @default("blank_image")
   price       Int
   sellerId    Int
-  seller      User     @relation(name: "TicketSeller", fields: [sellerId], references: [id])
+  seller      User     @relation(name: "TicketSeller", fields: [sellerId], references: [id], onDelete: Cascade)
   buyerId     Int?
   buyer       User?    @relation(name: "TicketBuyer", fields: [buyerId], references: [id])
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -12,20 +12,26 @@ module.exports = router;
 //   next();
 // });
 
-router.get("/", async (req, res,) => {
+router.get("/", async (req, res, next) => {
   try {
     const tickets = await prisma.ticket.findMany();
     res.json(tickets);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: err.message});
+    res.status(500).json({ error: err.message });
   }
 });
 
 router.post("/", async (req, res, next) => {
   try {
-    const { eventName, location, dateTime, description, seatSection, sellerId } =
-      req.body;
+    const {
+      eventName,
+      location,
+      dateTime,
+      description,
+      seatSection,
+      sellerId,
+    } = req.body;
     if (!eventName || !location || !dateTime) {
       const error = {
         status: 400,
@@ -66,15 +72,17 @@ const validateTicket = (user, ticket, next) => {
     return next(error);
   }
 };
-
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
+    console.log("Received ID:", id); // Add this line for debugging
+
     const ticket = await prisma.ticket.findUnique({ where: { id } });
-    validateTicket(res.locals.user, ticket);
+    console.log("Retrieved Ticket:", ticket); // Add this line for debugging
 
     res.json(ticket);
   } catch (err) {
+    console.error("Error retrieving ticket:", err); // Add this line for debugging
     next(err);
   }
 });
@@ -102,10 +110,10 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const ticket = await prisma.ticket.findUnique({ where: { id } });
+    const ticket = await prisma.ticket.findUnique({ where: { id: id } });
     validateTicket(res.locals.user, ticket);
 
-    await prisma.ticket.delete({ where: { id } });
+    await prisma.ticket.delete({ where: { id: id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);

@@ -12,12 +12,15 @@ function TicketCard({ ticket }) {
 
   const viewSellerProfile = () => {
     navigate(`/user/${id}`);
-   };
+  };
 
   const [deleteTicket] = useDeleteTicketMutation();
-  const handleDelete = () => {
-    deleteTicket();
-    navigate(`/tickets/${id}`);
+  const handleDelete = async () => {
+    try {
+      await deleteTicket(ticket.id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

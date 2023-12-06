@@ -7,8 +7,8 @@ import { Provider } from "react-redux";
 import store from "./store/index";
 
 import AuthForm from "./features/auth/AuthForm";
-import TicketList from "./features/tickets/TicketList";
-import Root from "./layout/Root";
+import TicketList from "./features/tickets/TicketList.jsx";
+import Root from "./layout/Root.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
