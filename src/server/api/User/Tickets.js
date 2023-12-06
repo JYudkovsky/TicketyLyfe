@@ -4,13 +4,22 @@ const prisma = require("../../prisma");
 const router = require("express").Router();
 module.exports = router;
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    console.log("Received ID:", id); // Add this line for debugging
+
+    const ticket = await prisma.ticket.findUnique({ where: { id } });
+    console.log("Retrieved Ticket:", ticket); // Add this line for debugging
+
+    res.json(ticket);
+  } catch (err) {
+    console.error("Error retrieving ticket:", err); // Add this line for debugging
+    next(err);
+  }
+});
+
 /** User must be logged in to access tasks. */
-// router.use((req, res, next) => {
-//   if (!res.locals.user) {
-//     return next(new ServerError(401, "You must be logged in."));
-//   }
-//   next();
-// });
 
 router.get("/", async (req, res, next) => {
   try {
@@ -20,6 +29,13 @@ router.get("/", async (req, res, next) => {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
+});
+
+router.use((req, res, next) => {
+  if (!res.locals.user) {
+    return next(new ServerError(401, "You must be logged in."));
+  }
+  next();
 });
 
 router.post("/", async (req, res, next) => {
@@ -72,20 +88,6 @@ const validateTicket = (user, ticket, next) => {
     return next(error);
   }
 };
-router.get("/:id", async (req, res, next) => {
-  try {
-    const id = +req.params.id;
-    console.log("Received ID:", id); // Add this line for debugging
-
-    const ticket = await prisma.ticket.findUnique({ where: { id } });
-    console.log("Retrieved Ticket:", ticket); // Add this line for debugging
-
-    res.json(ticket);
-  } catch (err) {
-    console.error("Error retrieving ticket:", err); // Add this line for debugging
-    next(err);
-  }
-});
 
 router.put("/:id", async (req, res, next) => {
   try {
