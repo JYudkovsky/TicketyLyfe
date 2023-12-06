@@ -35,7 +35,7 @@ function TicketCard({ ticket }) {
           {" "}
           View Seller Profile{" "}
         </button>
-        <div className="buy-now">Buy Now Price: ${price}</div>
+        <div className="buy-now">Buy Now Price: ${ticket.price}</div>
         <button className="details" onClick={handleDetailsClick}>
           Details
         </button>
