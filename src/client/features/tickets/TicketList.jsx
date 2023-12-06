@@ -1,8 +1,7 @@
-import { useGetTicketsQuery } from "./TicketSlice";
-import { Link, useNavigate } from "react-router-dom";
-import EventCard from "./TicketCard";
+import { useGetTicketsQuery } from "./TicketSlice";;
+import TicketCard from "./TicketCard";
+
 function TicketList() {
-  // const navigate = useNavigate();
   const { data: tickets, error, isLoading } = useGetTicketsQuery();
   if (isLoading) return <div> Loading . . . </div>;
   if (error) return <div> Error . . . </div>;
@@ -11,7 +10,7 @@ function TicketList() {
     <div className="ticket-list">
       <ul>
         {tickets.map((ticket) => (
-          <EventCard key={ticket.id} ticket={ticket} />
+          <TicketCard key={ticket.id} ticket={ticket} />
         ))}
       </ul>
     </div>
