@@ -10,14 +10,17 @@ function TicketCard({ ticket }) {
     navigate(`/user/${id}`);
   };
 
-  // const viewSellerProfile = () => {
-  //   navigate(`/user/${id}`);
-  // };
+  const viewSellerProfile = () => {
+    navigate(`/user/${id}`);
+  };
 
   const [deleteTicket] = useDeleteTicketMutation();
-  const handleDelete = () => {
-    deleteTicket();
-    navigate(`/tickets/${id}`);
+  const handleDelete = async () => {
+    try {
+      await deleteTicket(ticket.id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -35,7 +38,7 @@ function TicketCard({ ticket }) {
           {" "}
           View Seller Profile{" "}
         </button>
-        <div className="buy-now">Buy Now Price: ${price}</div>
+        <div className="buy-now">Buy Now Price: ${ticket.price}</div>
         <button className="details" onClick={handleDetailsClick}>
           Details
         </button>

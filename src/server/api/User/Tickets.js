@@ -71,18 +71,20 @@ const validateTicket = (user, ticket, next) => {
     return next(error);
   }
 };
+router.get("/:id", async (req, res, next) => {
+  try {
+    const id = +req.params.id;
+    console.log("Received ID:", id); // Add this line for debugging
 
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const id = +req.params.id;
-//     const ticket = await prisma.ticket.findUnique({ where: { id } });
-//     validateTicket(res.locals.user, ticket);
+    const ticket = await prisma.ticket.findUnique({ where: { id } });
+    console.log("Retrieved Ticket:", ticket); // Add this line for debugging
 
-//     res.json(ticket);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+    res.json(ticket);
+  } catch (err) {
+    console.error("Error retrieving ticket:", err); // Add this line for debugging
+    next(err);
+  }
+});
 
 router.put("/:id", async (req, res, next) => {
   try {
@@ -107,10 +109,10 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
 
-    const ticket = await prisma.ticket.findUnique({ where: { id } });
+    const ticket = await prisma.ticket.findUnique({ where: { id: id } });
     validateTicket(res.locals.user, ticket);
 
-    await prisma.ticket.delete({ where: { id } });
+    await prisma.ticket.delete({ where: { id: id } });
     res.sendStatus(204);
   } catch (err) {
     next(err);

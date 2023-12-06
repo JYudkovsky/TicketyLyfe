@@ -3,23 +3,23 @@ import api from "../../store/api";
 const ticketsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getTickets: builder.query({
-      query: () => "/tickets",
+      query: () => "/Tickets",
       providesTags: ["Tickets"],
     }),
     getTicket: builder.query({
-      query: (id) => `/tickets/${id}`,
+      query: (id) => `/Tickets/${id}`,
       providesTags: ["Tickets"],
     }),
     addTicket: builder.mutation({
       query: (ticket) => ({
-        url: "/tickets",
+        url: "/Tickets",
         method: "POST",
         body: ticket,
       }),
     }),
     editTicket: builder.mutation({
       query: (ticket) => ({
-        url: `/tickets/${ticket.id}`,
+        url: `/Tickets/${ticket.id}`,
         method: "PUT",
         body: ticket,
       }),
@@ -27,7 +27,7 @@ const ticketsApi = api.injectEndpoints({
     }),
     deleteTicket: builder.mutation({
       query: (id) => ({
-        url: `/tickets/${id}`,
+        url: `/Tickets/${id}`,
         method: "DELETE",
       }),
     }),
@@ -39,5 +39,5 @@ export const {
   useAddTicketMutation,
   useDeleteTicketMutation,
   useEditTicketMutation,
-  useGetTicketQuery
+  useGetTicketQuery,
 } = ticketsApi;
