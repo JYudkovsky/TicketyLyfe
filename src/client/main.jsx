@@ -4,26 +4,27 @@ import ReactDOM from "react-dom/client";
 import "./index.less";
 
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./store/index";
 
 import AuthForm from "./features/auth/AuthForm";
-import EventList from "./features/tickets/TicketList.jsx";
-import Root from "./layout/Root.jsx";
+import TicketList from "./features/tickets/TicketList";
+import Root from "./layout/Root";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
-      { path: "/", element: <EventList /> },
-      { path: "/events", element: <EventList /> },
+      { path: "/", element: <TicketList /> },
       { path: "/login", element: <AuthForm /> },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />

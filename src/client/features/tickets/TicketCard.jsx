@@ -1,23 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDeleteTicketMutation } from "./TicketSlice";
-import AddTicketForm from "./AddTicketForm";
+// import AddTicketForm from "./AddTicketForm";
 
 function TicketCard({ ticket }) {
   const navigate = useNavigate();
 
   const handleDetailsClick = () => {
-    navigate("${id}");
+    navigate(`/user/${id}`);
   };
 
   const viewSellerProfile = () => {
-    navigate("${id}");
-  };
+    navigate(`/user/${id}`);
+   };
 
   const [deleteTicket] = useDeleteTicketMutation();
   const handleDelete = () => {
     deleteTicket();
-    navigate("/tickets");
+    navigate(`/tickets/${id}`);
   };
 
   return (
@@ -35,7 +35,7 @@ function TicketCard({ ticket }) {
           {" "}
           View Seller Profile{" "}
         </button>
-        <div className="buy-now">Buy Now Price: ${ticket.price}</div>
+        <div className="buy-now">Buy Now Price: ${price}</div>
         <button className="details" onClick={handleDetailsClick}>
           Details
         </button>

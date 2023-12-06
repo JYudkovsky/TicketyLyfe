@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from "react-redux";
 import { selectToken } from "../auth/authSlice";
 import NewTask from "./NewTask";
@@ -7,9 +8,9 @@ import { useGetTasksQuery } from "./taskSlice";
 import "./Tasks.less";
 
 /** Main interface for user to interact with their tasks */
-export default function Tasks() {
+function HomePage() {
   const token = useSelector(selectToken);
-  const { data: tasks, isLoading } = useGetTasksQuery();
+  const { data: tasks, isLoading, isError, Error } = useGetTasksQuery();
 
   if (!token) {
     return <p>You must be logged in to see your tasks.</p>;
@@ -32,3 +33,4 @@ export default function Tasks() {
     </div>
   );
 }
+export default HomePage;
