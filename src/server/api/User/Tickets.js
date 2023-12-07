@@ -19,8 +19,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-/** User must be logged in to access tasks. */
-
 router.get("/", async (req, res, next) => {
   try {
     const tickets = await prisma.ticket.findMany();
