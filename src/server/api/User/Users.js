@@ -1,5 +1,6 @@
 const { ServerError } = require("../../errors");
 const prisma = require("../../prisma");
+const ticket = require("");
 
 const router = require("express").Router();
 module.exports = router;
@@ -21,12 +22,10 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
 router.get("/:id", async (req, res, next) => {
   try {
     const id = +req.params.id;
     const user = await prisma.user.findUnique({ where: { id } });
-    validateTicket(res.locals.user, user);
 
     res.json(user);
   } catch (err) {
@@ -34,10 +33,10 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post('/buy-ticket/:ticketId', async (req, res) => {
+router.post("/buy-ticket/:ticketId", async (req, res) => {
   const { ticketId } = req.params;
   const { buyerId } = req.locals.user.id; // Assuming you're sending the buyer's user ID in the request body
-  
+
   try {
     // Find the ticket by ID
     const ticket = await prisma.ticket.findUnique({
@@ -47,12 +46,12 @@ router.post('/buy-ticket/:ticketId', async (req, res) => {
     });
 
     if (!ticket) {
-      return res.status(404).json({ error: 'Ticket not found' });
+      return res.status(404).json({ error: "Ticket not found" });
     }
 
     // Assuming 'userId' is the field in your 'Ticket' model that represents the ticket owner's ID
     if (ticket.userId === buyerId) {
-      return res.status(400).json({ error: 'You cannot buy your own ticket' });
+      return res.status(400).json({ error: "You cannot buy your own ticket" });
     }
 
     // Update the ticket's owner ID to the buyer's ID
@@ -67,12 +66,20 @@ router.post('/buy-ticket/:ticketId', async (req, res) => {
 
     return res.status(200).json(updatedTicket);
   } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-router.post('/sell-ticket', async (req, res) => {
-  const { eventName, dateTime, description, location, seatSection, imageUrl, price } = req.body;
+router.post("/sell-ticket", async (req, res) => {
+  const {
+    eventName,
+    dateTime,
+    description,
+    location,
+    seatSection,
+    imageUrl,
+    price,
+  } = req.body;
   const sellerId = res.locals.user.id;
 
   try {
@@ -86,16 +93,15 @@ router.post('/sell-ticket', async (req, res) => {
         seatSection,
         imageUrl,
         price,
-        userId: sellerId // Associate the ticket with the user selling it
+        userId: sellerId, // Associate the ticket with the user selling it
       },
     });
 
     return res.status(201).json(newTicket);
   } catch (error) {
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 router.delete("/:id", async (req, res, next) => {
   try {
