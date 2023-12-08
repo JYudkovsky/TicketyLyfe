@@ -22,6 +22,7 @@ router.get("/:id", async (req, res, next) => {
 router.get("/", async (req, res, next) => {
   try {
     const tickets = await prisma.ticket.findMany();
+
     res.json(tickets);
   } catch (err) {
     console.error(err);
